@@ -7,7 +7,7 @@ import {useCollectionHolder} from "../contexts/CollectionHolder";
 
 
 export const CollectionHolderProfile: FC = ({ children }) => {
-    const {isHolder,holder}=useCollectionHolder();
+    const {isHolder,holder,tokens}=useCollectionHolder();
     return (
         <ul >
             <li >
@@ -16,6 +16,18 @@ export const CollectionHolderProfile: FC = ({ children }) => {
             <li >
                 is holder : {isHolder ? "yes" : 'no'}
             </li>
+            <div>
+                {tokens.map((token,i)=>{
+                    return(
+                        <div key={`token-data-${i}`}>
+                            <h3>
+                                {`${token.mint}: ${token.name}`}
+                            </h3>
+                            <img src={token.image} defaultValue={`${token.name}`}/>
+                        </div>
+                    )
+                })}
+            </div>
         </ul>
     );
 };

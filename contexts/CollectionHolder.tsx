@@ -6,16 +6,24 @@ import {useCollectionList} from "./CollectionList";
 import {AccountState} from "@solana/spl-token";
 import {bigInt} from "@solana/buffer-layout-utils";
 
+export interface TokenInfo {
+    mint: string
+    name: string
+    symbol: string
+    image: string
+}
 
 export interface CollectionHolderContextState {
     holder: PublicKey | null;
     isHolder: boolean;
+    tokens: TokenInfo[]
 }
 
 
 const DEFAULT_CONTEXT = {
     holder: null,
     isHolder: false,
+    tokens: []
 } as CollectionHolderContextState;
 
 
@@ -30,34 +38,44 @@ export const CollectionHolderProvider: FC = (
         children,
     }
 ) => {
-    const { publicKey } = useWallet();
-    const { connection } = useConnection();
-    const { collectionMap } = useCollectionList();
+    const {publicKey} = useWallet();
+    const {connection} = useConnection();
+    const {collectionMap} = useCollectionList();
     const [isHolder, setIsHolder] = useState(false);
+    const [tokens, setTokens] = useState<TokenInfo[]>([]);
 
-    useEffect(()=>{
-        const updateIsHolder=async ()=>{
+    useEffect(() => {
+        const update = async () => {
+            let ts: TokenInfo[] = []
             if (!publicKey) {
                 setIsHolder(false)
                 return
             }
-            let heldToken= await getHeldToken(connection,publicKey)
-            for (let token of heldToken){
-                if (collectionMap.get(token.mint.toBase58())) {
-                    setIsHolder(true)
-                    return
+            let heldToken = await getHeldToken(connection, publicKey)
+            for (let token of heldToken) {
+
+                if (collectionMap.has(token.mint.toBase58())) {
+                    const info = collectionMap.get(token.mint.toBase58())
+                    if (info) ts.push(info)
                 }
             }
-            setIsHolder(false)
+
+            if (ts.length > 0) {
+                setIsHolder(true)
+            } else {
+                setIsHolder(false)
+            }
+            setTokens(ts)
         }
-        updateIsHolder().catch(e=>alert(`get err with updateIsOwner:${e}`))
-    },[publicKey,connection])
+        update().catch(e => alert(`get err with update :${e}`))
+    }, [publicKey, connection])
 
     return (
         <CollectionHolderContext.Provider
             value={{
-                holder:publicKey,
+                holder: publicKey,
                 isHolder,
+                tokens,
             }}
         >
             {children}

@@ -26,7 +26,8 @@ export interface ContextProviderProps {
 export const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
     const network = WalletAdapterNetwork.Mainnet;
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    const endpoint = useMemo(() => "https://solana-mainnet.g.alchemy.com/v2/d9XAuLwmHnMp99EmdgrefLmgtdCT15KU", [network]);
+    console.log(endpoint)
     const wallets = useMemo(
         () => [
             new PhantomWalletAdapter(),
