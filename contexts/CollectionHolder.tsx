@@ -3,8 +3,6 @@ import {PublicKey} from "@solana/web3.js";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {getHeldToken, getTokenBalance} from "../helpers/token";
 import {useCollectionList} from "./CollectionList";
-import {AccountState} from "@solana/spl-token";
-import {bigInt} from "@solana/buffer-layout-utils";
 
 export interface TokenInfo {
     mint: string
