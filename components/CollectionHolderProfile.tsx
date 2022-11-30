@@ -1,12 +1,8 @@
 import React, {FC, useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {useWalletModal,WalletModalButton,WalletConnectButton,WalletIcon} from "@solana/wallet-adapter-react-ui";
-import {Button, ButtonProps} from "./Button";
-import {useTokenOwner} from "../contexts/TokenOwner";
 import {useCollectionHolder} from "../contexts/CollectionHolder";
 
 
-export const CollectionHolderProfile: FC = ({ children }) => {
+export const CollectionHolderProfile: FC = ({}) => {
     const {isHolder,holder,tokens}=useCollectionHolder();
     return (
         <ul >
