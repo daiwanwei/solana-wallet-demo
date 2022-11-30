@@ -28,7 +28,7 @@ export function useCollectionList(): CollectionListContextState {
 }
 
 
-export const CollectionListProvider: FC = (
+export const CollectionListProvider: FC<{children:ReactNode}> = (
     {
         children,
     }

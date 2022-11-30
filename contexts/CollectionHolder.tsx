@@ -31,7 +31,8 @@ export function useCollectionHolder(): CollectionHolderContextState {
     return useContext(CollectionHolderContext);
 }
 
-export const CollectionHolderProvider: FC = (
+
+export const CollectionHolderProvider: FC<{children:ReactNode}> = (
     {
         children,
     }
