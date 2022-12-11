@@ -40,7 +40,6 @@ export const CollectionHolderProvider: FC<{children:ReactNode}> = (
     }
 ) => {
     const {publicKey} = useWallet();
-    const {connection} = useConnection();
     const {collectionList} = useCollectionList();
     const [isHolder, setIsHolder] = useState(false);
     const [tokens, setTokens] = useState<TokenInfo[]>([]);
@@ -60,7 +59,7 @@ export const CollectionHolderProvider: FC<{children:ReactNode}> = (
             setTokens(heldToken)
         }
         update().catch(e => alert(`get err with update :${e}`))
-    }, [publicKey, connection])
+    }, [publicKey])
 
     return (
         <CollectionHolderContext.Provider
