@@ -16,6 +16,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.8",
     "@solana/wallet-adapter-wallets": "^0.16.6",
     "@solana/web3.js": "^1.67.0",
+    "axios": "^1.2.1",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3",
     "next": "13.0.3",

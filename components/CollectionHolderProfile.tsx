@@ -17,9 +17,9 @@ export const CollectionHolderProfile: FC = ({}) => {
                     return(
                         <div key={`token-data-${i}`}>
                             <h3>
-                                {`${token.mint}: ${token.name}`}
+                                {`${token.collectionName}: ${token.tokenName}`}
                             </h3>
-                            <img src={token.image} defaultValue={`${token.name}`}/>
+                            <img src={token.image} defaultValue={`${token.tokenName}`} width="100"/>
                         </div>
                     )
                 })}

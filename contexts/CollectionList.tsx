@@ -1,23 +1,20 @@
 import {createContext, FC, ReactNode, useContext, useEffect, useMemo, useState} from "react";
-import {PublicKey} from "@solana/web3.js";
-import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {getTokenBalance} from "../helpers/token";
-import NFT_LIST from "../bull_empire_detail.json"
+import NFT_LIST from "../whitelist.json"
 
-export interface TokenInfo {
-    mint: string
-    name: string
-    symbol: string
-    image: string
+
+export interface CollectionInfo {
+    collectionName: string
+    creator: string
+    originCollectionName: string
 }
 
 export interface CollectionListContextState {
-    collectionMap: Map<string,TokenInfo>;
+    collectionList: CollectionInfo[];
 }
 
 
 const DEFAULT_CONTEXT = {
-    collectionMap: new Map(),
+    collectionList: [],
 } as CollectionListContextState;
 
 
@@ -33,15 +30,14 @@ export const CollectionListProvider: FC<{children:ReactNode}> = (
         children,
     }
 ) => {
-    const collectionMap=useMemo(()=>{
-        let m=new Map<string,TokenInfo>()
+    const collectionList=useMemo(()=>{
+        let m=[]
         for (let i in NFT_LIST){
-            const key=NFT_LIST[i].mint
-            m.set(key,{
-                mint:NFT_LIST[i].mint,
-                name:NFT_LIST[i].name,
-                symbol:NFT_LIST[i].symbol,
-                image:NFT_LIST[i].image,
+            const key=NFT_LIST[i]
+            m.push({
+                creator:key.creator,
+                collectionName:key.collectionName,
+                originCollectionName: key.originCollectionName
             })
         }
         return m
@@ -50,7 +46,7 @@ export const CollectionListProvider: FC<{children:ReactNode}> = (
     return (
         <CollectionListContext.Provider
             value={{
-                collectionMap,
+                collectionList,
             }}
         >
             {children}

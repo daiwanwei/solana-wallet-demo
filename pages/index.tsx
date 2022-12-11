@@ -8,7 +8,7 @@ export default function Home() {
         <div className={styles.container}>
             {/*<TokenOwnerButton/>*/}
             {/*<TokenOwnerProfile/>*/}
-            <CollectionHolderButton>connect your wallet to see if you are a holder of bull empire</CollectionHolderButton>
+            <CollectionHolderButton>connect your wallet to see if you are a holder of collabrated collections</CollectionHolderButton>
             <CollectionHolderProfile/>
         </div>
     );
