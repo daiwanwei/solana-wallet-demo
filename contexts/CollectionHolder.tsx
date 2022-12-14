@@ -1,14 +1,14 @@
 import {createContext, FC, ReactNode, useContext, useEffect, useState} from "react";
 import {PublicKey} from "@solana/web3.js";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {getHeldToken} from "../helpers/token";
+import {getHeldTokens} from "../helpers/token";
 import {useCollectionList} from "./CollectionList";
 
 export interface TokenInfo {
     creator: string
     collectionName: string
     tokenName: string
-    amount: number
+    amount: string
     image: string
     mint: string
 }
@@ -39,6 +39,7 @@ export const CollectionHolderProvider: FC<{children:ReactNode}> = (
         children,
     }
 ) => {
+    const {connection} = useConnection();
     const {publicKey} = useWallet();
     const {collectionList} = useCollectionList();
     const [isHolder, setIsHolder] = useState(false);
@@ -50,7 +51,7 @@ export const CollectionHolderProvider: FC<{children:ReactNode}> = (
                 setIsHolder(false)
                 return
             }
-            let heldToken = await getHeldToken(publicKey,collectionList)
+            let heldToken = await getHeldTokens(connection,publicKey,collectionList)
             if (heldToken.length > 0) {
                 setIsHolder(true)
             } else {

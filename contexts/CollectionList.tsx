@@ -3,9 +3,11 @@ import NFT_LIST from "../whitelist.json"
 
 
 export interface CollectionInfo {
-    collectionName: string
     creator: string
-    originCollectionName: string
+    collectionName: string
+    tokenName: string
+    image: string
+    mint: string
 }
 
 export interface CollectionListContextState {
@@ -37,7 +39,9 @@ export const CollectionListProvider: FC<{children:ReactNode}> = (
             m.push({
                 creator:key.creator,
                 collectionName:key.collectionName,
-                originCollectionName: key.originCollectionName
+                tokenName: key.tokenName,
+                image: key.image,
+                mint: key.mint,
             })
         }
         return m
